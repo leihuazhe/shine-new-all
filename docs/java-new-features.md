@@ -1,3 +1,10 @@
+# 概述
+参考文档：
+- https://www.didispace.com/java-features/java10/jep286-local-variable-type-inference.html
+- https://advancedweb.hu/new-language-features-since-java-8-to-21/
+- https://www.baeldung.com/java-switch-pattern-matching
+
+
 ## Primitive classes
 > Java Valhalla
 > https://openjdk.org/jeps/401
