@@ -4,6 +4,8 @@ public class SwitchCaseTest {
 
     public static void main(String[] args) {
         test1(13);
+        test1("1321");
+        System.out.println(args[0]);
     }
 
 
