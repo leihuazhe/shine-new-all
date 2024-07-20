@@ -1,0 +1,6 @@
+//
+//module consumer {
+//    requires provider;
+//    // declares the use of the services
+//    uses com.maple.shine.versions.java9.modules.services.provider.Calculator;
+//}

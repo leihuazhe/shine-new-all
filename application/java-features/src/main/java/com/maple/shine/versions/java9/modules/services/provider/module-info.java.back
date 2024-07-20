@@ -1,0 +1,12 @@
+//import com.maple.shine.versions.java9.modules.services.provider.Calculator;
+//
+///**
+// * Define the module which provides the service.
+// */
+//module provider {
+//    // exports the interface
+//    exports com.maple.shine.versions.java9.modules.services.provider;
+//    // define the implementation for the interface
+//    provides Calculator
+//            with com.maple.shine.versions.java9.modules.services.provider.dadams.HitchhikerCalculator;
+//}
