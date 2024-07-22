@@ -26,6 +26,7 @@
     <modules>
         <module>application/java-features</module>
         <module>application/spring-kafka-3.x</module>
+        <module>application/spring-integration</module>
     </modules>
     <!-- modules	-->
 
