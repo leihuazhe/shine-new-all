@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: shine-kafka-s1
+
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+    # connect to kafka
+    bootstrapServers:
+      - 39.108.110.17:9092
+
