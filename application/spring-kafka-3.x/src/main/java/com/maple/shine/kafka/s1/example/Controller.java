@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Gary Russell
  * @since 2.2.1
  */
-@RestController
+// @RestController
 public class Controller {
 
   @Autowired

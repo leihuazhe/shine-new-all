@@ -42,7 +42,7 @@ import org.springframework.util.backoff.FixedBackOff;
  * @author Gary Russell
  * @since 2.2.1
  */
-@Configuration
+// @Configuration
 @Slf4j
 public class CoreConfiguration {
   private final TaskExecutor exec = new SimpleAsyncTaskExecutor();
