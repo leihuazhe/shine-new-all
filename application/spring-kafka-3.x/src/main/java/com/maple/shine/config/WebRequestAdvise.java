@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.lang.NonNullApi;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 
@@ -21,9 +23,11 @@ import java.lang.reflect.Type;
  */
 @RestControllerAdvice
 @Slf4j
+@NonNullApi
 public class WebRequestAdvise implements RequestBodyAdvice {
 
   private static final String API_CLASS_NAME_PREFIX = "com.maple.shine.controller";
+  private static final String PROJECT_FIELD_NAME = "projectId";
 
   @Override
   public boolean supports(MethodParameter parameter, Type targetType,
@@ -43,18 +47,22 @@ public class WebRequestAdvise implements RequestBodyAdvice {
   }
 
   @Override
-  public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType,
+  public Object afterBodyRead( Object body, HttpInputMessage inputMessage, MethodParameter parameter,
+      Type targetType,
       Class<? extends HttpMessageConverter<?>> converterType) {
-    log.info("In afterBodyRead() method of {}", getClass().getSimpleName());
-
-    Field projectIdField;
     try {
-      projectIdField = body.getClass().getDeclaredField("projectId");
-      projectIdField.setAccessible(true);
-      projectIdField.set(body, AuthContext.getProjectId());
-
+      Class<?> clazz = body.getClass();
+      Field projectIdField = ReflectionUtils.findField(clazz, PROJECT_FIELD_NAME);
+      if (projectIdField != null) {
+        ReflectionUtils.makeAccessible(projectIdField);
+        Integer originalId = (Integer) ReflectionUtils.getField(projectIdField, body);
+        // 如果请求参数 project_id 为空, 或者值为 0, 则进行覆盖
+        if (originalId == null || originalId == 0) {
+          ReflectionUtils.setField(projectIdField, body, AuthContext.getProjectId());
+        }
+      }
     } catch (Exception e) {
-      log.error(e.getMessage(), e);
+      log.error("Fill projectId to open api request failed", e);
     }
     return body;
   }
